@@ -3,7 +3,9 @@ package com.ucfsurveys.ucfsurveys;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,6 +13,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -44,7 +50,7 @@ public class SurveySelection extends Activity implements View.OnClickListener, A
 
     @Override
     public void onClick(View v) {
-        Intent nextActivity = new Intent(this, MultipleChoiceQuestion.class);
+        Intent nextActivity = new Intent(this, MultipleChoiceQuestionActivity.class);
         nextActivity.putExtra(Intent.EXTRA_TEXT, selectedView.getText());
         startActivity(nextActivity);
     }
@@ -59,5 +65,28 @@ public class SurveySelection extends Activity implements View.OnClickListener, A
         selectedView = (TextView)view;
         selectedView.setBackgroundColor(Color.LTGRAY);
     }
+
+    class NextQuestionTask extends AsyncTask<String, String , String >{
+
+        @Override
+        protected String doInBackground(String... params) {
+            InputStream is = null;
+            HttpURLConnection httpConnection = null;
+            try {
+                URL url = new URL(params[0]);
+                httpConnection = (HttpURLConnection)url.openConnection();
+
+                httpConnection.setRequestMethod("POST");
+                int statusCode = httpConnection.getResponseCode();
+
+                if(statusCode == 200){
+                    is = new BufferedInputStream(httpConnection.getInputStream());
+
+                }
+            }catch (Exception e){
+                Log.d("error", e.toString());
+            }
+            return null;
+        }
+    }
 }
-//Zbft195*

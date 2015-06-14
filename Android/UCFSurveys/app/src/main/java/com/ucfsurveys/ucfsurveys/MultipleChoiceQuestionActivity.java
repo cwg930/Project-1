@@ -11,18 +11,14 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by cwg93_000 on 6/14/2015.
- */
-public class MultipleSelectionQuestion extends Question implements AdapterView.OnItemClickListener{
 
+public class MultipleChoiceQuestionActivity extends QuestionActivity implements AdapterView.OnItemClickListener{
     ListView answerListView;
     ArrayAdapter mArrayAdapter;
     ArrayList<String> answerTextList;
-
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_multiple_selection_question);
+        setContentView(R.layout.activity_multiple_choice_question);
         questionText = (TextView)findViewById(R.id.QuestionText);
         answerListView = (ListView)findViewById(R.id.answerList);
         nextButton = (Button)findViewById(R.id.nextButton);
@@ -36,18 +32,17 @@ public class MultipleSelectionQuestion extends Question implements AdapterView.O
 
             answerTextList.add("answer: " + i);
         }
-        mArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice,answerTextList);
+        mArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice,answerTextList);
         answerListView.setAdapter(mArrayAdapter);
 
         nextButton.setOnClickListener(this);
     }
 
     public void onClick(View v){
-        Intent i = new Intent(this,TextQuestion.class);
+        Intent i = new Intent(this,MultipleSelectionQuestionActivity.class);
         startActivity(i);
     }
 
-    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
     }

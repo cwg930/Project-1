@@ -10,7 +10,7 @@ import android.widget.TextView;
 /**
  * Created by cwg93_000 on 6/14/2015.
  */
-public class TextQuestion extends Question {
+public class TextQuestionActivity extends QuestionActivity {
 
     EditText answerText;
 

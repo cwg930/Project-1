@@ -13,7 +13,7 @@
 
         </activity>
         <activity
-            android:name=".MultipleChoiceQuestion"
+            android:name=".MultipleChoiceQuestionActivity"
             android:label="MultipleChoiceQuestion" >
         </activity>
         <activity
@@ -25,9 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MultipleSelectionQuestion"
+        <activity android:name=".MultipleSelectionQuestionActivity"
             android:label="MultipleSelectionQuestion"/>
-        <activity android:name=".TextQuestion"
+        <activity android:name=".TextQuestionActivity"
             android:label="TextQuestion"/>
     </application>
 

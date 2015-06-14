@@ -53,3 +53,6 @@ C:\Users\Martha\Documents\Visual Studio 2013\Projects\AngularTutorial\Summer\Web
 C:\Users\Martha\Documents\Visual Studio 2013\Projects\AngularTutorial\Summer\WebApplication4\WebApplication4\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Martha\Documents\Visual Studio 2013\Projects\AngularTutorial\Summer\WebApplication4\WebApplication4\obj\Debug\WebApplication4.dll
 C:\Users\Martha\Documents\Visual Studio 2013\Projects\AngularTutorial\Summer\WebApplication4\WebApplication4\obj\Debug\WebApplication4.pdb
+D:\Documents\School\COP4331\Project-1\WebAppSurvey\WebApplication4\obj\Debug\WebApplication4.csprojResolveAssemblyReference.cache
+D:\Documents\School\COP4331\Project-1\WebAppSurvey\WebApplication4\obj\Debug\WebApplication4.dll
+D:\Documents\School\COP4331\Project-1\WebAppSurvey\WebApplication4\obj\Debug\WebApplication4.pdb

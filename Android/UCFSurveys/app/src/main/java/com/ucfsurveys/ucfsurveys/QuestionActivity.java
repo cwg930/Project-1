@@ -9,7 +9,7 @@ import android.widget.TextView;
 /**
  * Created by cwg93_000 on 6/14/2015.
  */
-public abstract class Question extends Activity implements View.OnClickListener{
+public abstract class QuestionActivity extends Activity implements View.OnClickListener{
     TextView questionText;
     Button nextButton;
     @Override
@@ -18,6 +18,5 @@ public abstract class Question extends Activity implements View.OnClickListener{
     }
 
     public abstract void onClick(View v);
-
 
 }
