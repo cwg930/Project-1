@@ -29,6 +29,8 @@
             android:label="MultipleSelectionQuestion"/>
         <activity android:name=".TextQuestionActivity"
             android:label="TextQuestion"/>
+        <activity android:name=".ResultsActivity"
+            android:label="ResultsActivity"/>
     </application>
 
 </manifest>

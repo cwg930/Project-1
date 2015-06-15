@@ -29,10 +29,16 @@ public class SurveySelection extends Activity implements View.OnClickListener, A
     ListView SurveyList;
     ArrayAdapter mArrayAdapter;
     ArrayList<String> mNameList = new ArrayList<String>();
+    Boolean isViewer;
+    Bundle surveyBundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey_selection);
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            isViewer = extras.getBoolean("isViewer");
+        }
         titleView = (TextView)findViewById(R.id.survey_available_text);
         selectSurveyButton = (Button)findViewById(R.id.select_survey_btn);
         SurveyList = (ListView)findViewById(R.id.Survey_Listview);
@@ -50,8 +56,15 @@ public class SurveySelection extends Activity implements View.OnClickListener, A
 
     @Override
     public void onClick(View v) {
-        Intent nextActivity = new Intent(this, MultipleChoiceQuestionActivity.class);
-        nextActivity.putExtra(Intent.EXTRA_TEXT, selectedView.getText());
+        Intent nextActivity;
+        if(isViewer){
+            nextActivity = new Intent(this,ResultsActivity.class);
+        }
+        else {
+            nextActivity = new Intent(this, MultipleChoiceQuestionActivity.class);
+            nextActivity.putExtra(Intent.EXTRA_TEXT, selectedView.getText());
+
+        }
         startActivity(nextActivity);
     }
 
@@ -66,12 +79,13 @@ public class SurveySelection extends Activity implements View.OnClickListener, A
         selectedView.setBackgroundColor(Color.LTGRAY);
     }
 
-    class NextQuestionTask extends AsyncTask<String, String , String >{
+    class NextQuestionTask extends AsyncTask<String, Void , Bundle >{
 
         @Override
-        protected String doInBackground(String... params) {
+        protected Bundle doInBackground(String... params) {
             InputStream is = null;
             HttpURLConnection httpConnection = null;
+            Bundle surveyData = null;
             try {
                 URL url = new URL(params[0]);
                 httpConnection = (HttpURLConnection)url.openConnection();
@@ -81,12 +95,13 @@ public class SurveySelection extends Activity implements View.OnClickListener, A
 
                 if(statusCode == 200){
                     is = new BufferedInputStream(httpConnection.getInputStream());
-
+                    surveyData = JSONParser.parseSurvey(is);
                 }
             }catch (Exception e){
                 Log.d("error", e.toString());
             }
-            return null;
+            return surveyData;
         }
+
     }
 }

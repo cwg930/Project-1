@@ -12,20 +12,29 @@ import android.widget.Button;
 public class UCFSurveys extends Activity implements View.OnClickListener {
 
     Button getSurveyButton;
+    Button viewResultsButton;
     @Override
     public void onClick(View v) {
-        Intent i = new Intent(this,SurveySelection.class);
-        startActivity(i);
-    }
+        Intent i = new Intent(this, SurveySelection.class);
+        if (v.getId() == R.id.getSurveyButton) {
+            i.putExtra("isViewer", false);
 
+        } else if (v.getId() == R.id.getResultsButton) {
+            i.putExtra("isViewer", true);
+        }
+        startActivity(i);
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ucfsurveys);
 
         getSurveyButton = (Button)findViewById(R.id.getSurveyButton);
+        viewResultsButton = (Button)findViewById(R.id.getResultsButton);
 
         getSurveyButton.setOnClickListener(this);
+        viewResultsButton.setOnClickListener(this);
     }
 
 }
