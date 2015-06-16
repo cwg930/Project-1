@@ -2,6 +2,7 @@ package com.ucfsurveys.ucfsurveys;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
@@ -14,7 +15,7 @@ import org.w3c.dom.Text;
 /**
  * Created by cwg93_000 on 6/14/2015.
  */
-public class ResultsActivity extends Activity{
+public class ResultsActivity extends Activity implements View.OnClickListener{
     TextView titleText;
     TextView questionText;
     GraphView graph;
@@ -35,4 +36,7 @@ public class ResultsActivity extends Activity{
         series.setSpacing(50);
     }
 
+    public void onClick(View v){
+
+    }
 }

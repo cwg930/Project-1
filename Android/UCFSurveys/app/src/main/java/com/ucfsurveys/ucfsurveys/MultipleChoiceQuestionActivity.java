@@ -24,8 +24,7 @@ public class MultipleChoiceQuestionActivity extends QuestionActivity implements 
         nextButton = (Button)findViewById(R.id.nextButton);
         Bundle extras = getIntent().getExtras();
         if(extras != null){
-            String value = extras.getString(Intent.EXTRA_TEXT);
-            questionText.setText(value);
+            Bundle value = extras.getBundle("surveyBundle");
         }
         answerTextList = new ArrayList<String>();
         for (int i = 1; i <= 5; i++) {
