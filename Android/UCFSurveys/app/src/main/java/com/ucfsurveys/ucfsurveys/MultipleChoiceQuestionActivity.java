@@ -22,10 +22,13 @@ public class MultipleChoiceQuestionActivity extends QuestionActivity implements 
         questionText = (TextView)findViewById(R.id.QuestionText);
         answerListView = (ListView)findViewById(R.id.answerList);
         nextButton = (Button)findViewById(R.id.nextButton);
-        Bundle extras = getIntent().getExtras();
-        if(extras != null){
-            Bundle value = extras.getBundle("surveyBundle");
+        ArrayList<Bundle> questionList = getIntent().getParcelableArrayListExtra("questionList");
+        int questionNum = getIntent().getIntExtra("questionNum",0);
+        Bundle questionData = null;
+        if(questionList != null){
+            questionData = questionList.get(questionNum);
         }
+        questionText.setText(questionData.getString("question_title"));
         answerTextList = new ArrayList<String>();
         for (int i = 1; i <= 5; i++) {
 

@@ -23,11 +23,14 @@ public class UCFSurveys extends Activity implements View.OnClickListener {
     Boolean nextScreenIsViewer = false;
     @Override
     public void onClick(View v) {
+        Intent i = new Intent(this,SurveySelection.class);
         if (v.getId() == R.id.getSurveyButton) {
             nextScreenIsViewer = false;
         } else if (v.getId() == R.id.getResultsButton) {
             nextScreenIsViewer = true;
         }
+        i.putExtra("isViewer", nextScreenIsViewer);
+        startActivity(i);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +43,7 @@ public class UCFSurveys extends Activity implements View.OnClickListener {
         getSurveyButton.setOnClickListener(this);
         viewResultsButton.setOnClickListener(this);
     }
-    class GetSurveysTask extends AsyncTask<String, Void, Bundle>{
+    /*class GetSurveysTask extends AsyncTask<String, Void, Bundle>{
 
         @Override
         protected Bundle doInBackground(String... params) {
@@ -69,5 +72,5 @@ public class UCFSurveys extends Activity implements View.OnClickListener {
             super.onPostExecute(b);
 
         }
-    }
+    }*/
 }
