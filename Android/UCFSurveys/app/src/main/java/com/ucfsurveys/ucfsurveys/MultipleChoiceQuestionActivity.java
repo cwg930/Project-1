@@ -16,36 +16,44 @@ public class MultipleChoiceQuestionActivity extends QuestionActivity implements 
     ListView answerListView;
     ArrayAdapter mArrayAdapter;
     ArrayList<String> answerTextList;
+    int selectionId;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multiple_choice_question);
         questionText = (TextView)findViewById(R.id.QuestionText);
         answerListView = (ListView)findViewById(R.id.answerList);
         nextButton = (Button)findViewById(R.id.nextButton);
-        ArrayList<Bundle> questionList = getIntent().getParcelableArrayListExtra("questionList");
-        int questionNum = getIntent().getIntExtra("questionNum",0);
+        questionList = getIntent().getParcelableArrayListExtra("questionList");
+        questionNum = getIntent().getIntExtra("questionNum",0);
+        completedList = getIntent().getStringArrayListExtra("completedList");
         Bundle questionData = null;
         if(questionList != null){
             questionData = questionList.get(questionNum);
+
         }
+        ArrayList<Bundle> choiceList = questionData.getParcelableArrayList("choices");
         questionText.setText(questionData.getString("question_title"));
         answerTextList = new ArrayList<String>();
-        for (int i = 1; i <= 5; i++) {
-
-            answerTextList.add("answer: " + i);
+        if(choiceList != null){
+            for(Bundle b: choiceList){
+                answerTextList.add(b.getString("text"));
+            }
         }
         mArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice,answerTextList);
         answerListView.setAdapter(mArrayAdapter);
 
         nextButton.setOnClickListener(this);
+        answerListView.setOnItemClickListener(this);
     }
 
     public void onClick(View v){
-        Intent i = new Intent(this,MultipleSelectionQuestionActivity.class);
-        startActivity(i);
+        completedList.add(Integer.toString(selectionId));
+        super.onClick(v);
+
     }
-
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        selectionId = position;
+        view.setSelected(true);
     }
 }

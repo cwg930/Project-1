@@ -127,25 +127,25 @@ public class SurveySelection extends Activity implements View.OnClickListener, A
             super.onPostExecute(list);
             pDialog.dismiss();
             Intent nextQuestion;
-            ArrayList<String> answerList = new ArrayList<>();
+            ArrayList<String> completedList = new ArrayList<>();
             String questionType = list.get(0).getString("question_type");
             if(questionType.equals("TX")){
                 nextQuestion = new Intent(getApplicationContext(),TextQuestionActivity.class);
                 nextQuestion.putParcelableArrayListExtra("questionList",list);
                 nextQuestion.putExtra("questionNum", 0);
-                nextQuestion.putStringArrayListExtra("answerList", answerList);
+                nextQuestion.putStringArrayListExtra("completedList", completedList);
                 startActivity(nextQuestion);
             }else if(questionType.equals("MC")||questionType.equals("DD")){
                 nextQuestion = new Intent(getApplicationContext(), MultipleChoiceQuestionActivity.class);
                 nextQuestion.putParcelableArrayListExtra("questionList", list);
                 nextQuestion.putExtra("questionNum", 0);
-                nextQuestion.putStringArrayListExtra("answerList", answerList);
+                nextQuestion.putStringArrayListExtra("completedList", completedList);
                 startActivity(nextQuestion);
             }else if(questionType.equals("CB")){
                 nextQuestion = new Intent(getApplicationContext(), MultipleSelectionQuestionActivity.class);
                 nextQuestion.putParcelableArrayListExtra("questionList", list);
                 nextQuestion.putExtra("questionNum", 0);
-                nextQuestion.putStringArrayListExtra("answerList",answerList);
+                nextQuestion.putStringArrayListExtra("completedList",completedList);
                 startActivity(nextQuestion);
             }
         }

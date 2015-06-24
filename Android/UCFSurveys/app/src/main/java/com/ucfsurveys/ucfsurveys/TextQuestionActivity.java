@@ -19,8 +19,9 @@ public class TextQuestionActivity extends QuestionActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_question);
-        ArrayList<Bundle> questionList = getIntent().getParcelableArrayListExtra("questionList");
-        int questionNum = getIntent().getIntExtra("questionNum",0);
+        questionList = getIntent().getParcelableArrayListExtra("questionList");
+        questionNum = getIntent().getIntExtra("questionNum", 0);
+        completedList = getIntent().getStringArrayListExtra("completedList");
         Bundle questionData = null;
         if(questionList != null){
             questionData = questionList.get(questionNum);
@@ -32,10 +33,12 @@ public class TextQuestionActivity extends QuestionActivity {
         if(questionData != null){
             questionText.setText(questionData.getString("question_title"));
         }
+        nextButton.setOnClickListener(this);
 
     }
 
     public void onClick(View v){
-
+        completedList.add(answerText.getText().toString());
+        super.onClick(v);
     }
 }

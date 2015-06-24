@@ -1,5 +1,6 @@
 package com.ucfsurveys.ucfsurveys;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +20,7 @@ public class MultipleSelectionQuestionActivity extends QuestionActivity implemen
     ListView answerListView;
     ArrayAdapter mArrayAdapter;
     ArrayList<String> answerTextList;
+    int selectionId;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -26,31 +28,36 @@ public class MultipleSelectionQuestionActivity extends QuestionActivity implemen
         questionText = (TextView)findViewById(R.id.QuestionText);
         answerListView = (ListView)findViewById(R.id.answerList);
         nextButton = (Button)findViewById(R.id.nextButton);
-        ArrayList<Bundle> questionList = getIntent().getParcelableArrayListExtra("questionList");
-        int questionNum = getIntent().getIntExtra("questionNum",0);
+        questionList = getIntent().getParcelableArrayListExtra("questionList");
+        questionNum = getIntent().getIntExtra("questionNum",0);
+        completedList = getIntent().getStringArrayListExtra("completedList");
         Bundle questionData = null;
         if(questionList != null){
             questionData = questionList.get(questionNum);
         }
         questionText.setText(questionData.getString("question_title"));
+        ArrayList<Bundle> choiceList = questionData.getParcelableArrayList("choices");
         answerTextList = new ArrayList<String>();
-        for (int i = 1; i <= 5; i++) {
-
-            answerTextList.add("answer: " + i);
+        if(choiceList != null){
+            for(Bundle b: choiceList){
+                answerTextList.add(b.getString("text"));
+            }
         }
         mArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice,answerTextList);
         answerListView.setAdapter(mArrayAdapter);
 
         nextButton.setOnClickListener(this);
+        answerListView.setOnItemClickListener(this);
     }
 
     public void onClick(View v){
-        Intent i = new Intent(this,TextQuestionActivity.class);
-        startActivity(i);
+        completedList.add(Integer.toString(selectionId));
+        super.onClick(v);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        selectionId = position;
+        view.setSelected(true);
     }
 }

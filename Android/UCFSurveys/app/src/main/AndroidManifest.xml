@@ -25,13 +25,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity>        completedList.add(Integer.toString(selectionId));
+
         <activity android:name=".MultipleSelectionQuestionActivity"
             android:label="MultipleSelectionQuestion"/>
         <activity android:name=".TextQuestionActivity"
             android:label="TextQuestion"/>
         <activity android:name=".ResultsActivity"
             android:label="ResultsActivity"/>
+        <activity android:name=".Submit"
+            android:label="Submit"/>
     </application>
 
 </manifest>

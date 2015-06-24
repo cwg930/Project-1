@@ -25,13 +25,13 @@ public class JSONParser {
             }
             reader.endArray();
         }catch (IOException e){
-            Log.e("Error: ", e.toString());
+            Log.d("Parse failed: ", e.toString());
         }
 
         return questionList;
     }
 
-    public static Bundle parseQuestion(JsonReader reader){
+    private static Bundle parseQuestion(JsonReader reader){
         Bundle questionData = new Bundle();
         try{
             reader.beginObject();
@@ -43,16 +43,53 @@ public class JSONParser {
                     questionData.putString(name,reader.nextString());
                 }else if(name.equals("question_title")){
                     questionData.putString(name,reader.nextString());
-                }else if(name.equals("question_choice")){
-                    questionData.putString(name,reader.nextString());
+                }else if(name.equals("num_choices")){
+                    questionData.putInt(name, reader.nextInt());
+                }else if(name.equals("choices")){
+                    questionData.putParcelableArrayList(name, parseChoiceList(reader));
                 }else{
                     reader.skipValue();
                 }
             }
             reader.endObject();
         }catch (IOException e){
-            Log.e("Error: ", e.toString());
+            Log.d("Parse failed: ", e.toString());
         }
         return questionData;
+    }
+
+    private static ArrayList<Bundle> parseChoiceList(JsonReader reader){
+        ArrayList<Bundle> choices = new ArrayList<>();
+        try{
+            reader.beginArray();
+            while(reader.hasNext()){
+                choices.add(parseChoice(reader));
+            }
+            reader.endArray();
+        }catch (IOException e){
+            Log.d("Parse failed: ", e.toString());
+        }
+        return choices;
+    }
+
+    private static Bundle parseChoice(JsonReader reader){
+        Bundle choice = new Bundle();
+        try{
+            reader.beginObject();
+            while (reader.hasNext()){
+                String name = reader.nextName();
+                if(name.equals("num")){
+                    choice.putInt(name, reader.nextInt());
+                }else if(name.equals("text")){
+                    choice.putString(name, reader.nextString());
+                }else{
+                    reader.skipValue();
+                }
+            }
+            reader.endObject();
+        }catch (IOException e){
+            Log.d("Parse failed: ", e.toString());
+        }
+        return choice;
     }
 }
