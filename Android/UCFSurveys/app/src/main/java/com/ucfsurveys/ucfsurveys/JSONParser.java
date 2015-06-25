@@ -15,8 +15,17 @@ import java.util.ArrayList;
  */
 public class JSONParser {
 
-    public static ArrayList<Bundle> parseQuestionList(InputStream is) throws IOException {
+    public static ArrayList<Bundle> parseResponse(InputStream is, boolean isViewer) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
+
+        if(isViewer){
+            return parseAnswerList(reader);
+        }else{
+            return parseQuestionList(reader);
+        }
+    }
+
+    private static ArrayList<Bundle> parseQuestionList(JsonReader reader) throws IOException {
         ArrayList<Bundle> questionList = new ArrayList<>();
         try{
             reader.beginArray();
@@ -91,5 +100,11 @@ public class JSONParser {
             Log.d("Parse failed: ", e.toString());
         }
         return choice;
+    }
+
+    private static ArrayList<Bundle> parseAnswerList(JsonReader reader){
+        ArrayList<Bundle> answerList = new ArrayList<>();
+
+        return answerList;
     }
 }

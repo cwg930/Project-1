@@ -59,14 +59,17 @@ public class SurveySelection extends Activity implements View.OnClickListener, A
 
     @Override
     public void onClick(View v) {
+        GetQuestionsTask task = new GetQuestionsTask();
         if(isViewer){
-            Intent nextActivity;
-            nextActivity = new Intent(this,ResultsActivity.class);
-            startActivity(nextActivity);
-
+            if(selectedId == 0) {
+                task.execute("http://www.ucfsurveys.com/JSON_encode/results1.php");
+            } else if(selectedId == 1) {
+                task.execute("http://www.ucfsurveys.com/JSON_encode/results2.php");
+            } else if(selectedId == 2) {
+                task.execute("http://www.ucfsurveys.com/JSON_encode/results3.php");
+            }
         }
         else {
-            GetQuestionsTask task = new GetQuestionsTask();
             if(selectedId == 0) {
                 task.execute("http://www.ucfsurveys.com/JSON_encode/json_encode1.php");
             }else if(selectedId == 1){
@@ -114,7 +117,7 @@ public class SurveySelection extends Activity implements View.OnClickListener, A
 
                 if(statusCode == 200){
                     is = new BufferedInputStream(httpConnection.getInputStream());
-                    questionList = JSONParser.parseQuestionList(is);
+                    questionList = JSONParser.parseResponse(is, isViewer);
                 }
             }catch (Exception e){
                 Log.d("error", e.toString());
@@ -126,6 +129,14 @@ public class SurveySelection extends Activity implements View.OnClickListener, A
         protected void onPostExecute(ArrayList<Bundle> list) {
             super.onPostExecute(list);
             pDialog.dismiss();
+            if(isViewer){
+                startViewer(list);
+            }else{
+                startSurvey(list);
+            }
+        }
+
+        private void startSurvey(ArrayList<Bundle> list){
             Intent nextQuestion;
             ArrayList<String> completedList = new ArrayList<>();
             String questionType = list.get(0).getString("question_type");
@@ -153,5 +164,8 @@ public class SurveySelection extends Activity implements View.OnClickListener, A
             }
         }
 
+        private void startViewer(ArrayList<Bundle> list){
+
+        }
     }
 }
