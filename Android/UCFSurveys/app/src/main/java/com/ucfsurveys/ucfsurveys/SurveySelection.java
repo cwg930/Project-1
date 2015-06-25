@@ -165,7 +165,10 @@ public class SurveySelection extends Activity implements View.OnClickListener, A
         }
 
         private void startViewer(ArrayList<Bundle> list){
-
+            Intent nextViewer = new Intent(getApplicationContext(),ResultsActivity.class);
+            nextViewer.putParcelableArrayListExtra("resultList", list);
+            nextViewer.putExtra("questionNum", 0);
+            startActivity(nextViewer);
         }
     }
 }

@@ -25,16 +25,16 @@ $resultTotal = mysqli_fetch_assoc($query2);
 $response[1]['total'] = $resultTotal['c'];
 $query = mysqli_query($link,"SELECT COUNT(*) AS c FROM `SURVEY_1_RESULTS` WHERE question_id=1 AND answer=1 "); 
 $result1 = mysqli_fetch_assoc($query);
-$response[1]['result1'] = $result1['c'];
+$response[1]['answers'][] = $result1['c'];
 $query = mysqli_query($link,"SELECT COUNT(*) AS c FROM `SURVEY_1_RESULTS` WHERE question_id=1 AND answer=2 "); 
 $result1 = mysqli_fetch_assoc($query);
-$response[1]['result2'] = $result1['c'];
+$response[1]['answers'][] = $result1['c'];
 $query = mysqli_query($link,"SELECT COUNT(*) AS c FROM `SURVEY_1_RESULTS` WHERE question_id=1 AND answer=3 "); 
 $result1 = mysqli_fetch_assoc($query);
-$response[1]['result3'] = $result1['c'];
+$response[1]['answers'][] = $result1['c'];
 $query = mysqli_query($link,"SELECT COUNT(*) AS c FROM `SURVEY_1_RESULTS` WHERE question_id=1 AND answer=4 "); 
 $result1 = mysqli_fetch_assoc($query);
-$response[1]['result4'] = $result1['c'];
+$response[1]['answers'][] = $result1['c'];
 
 //results for Question2
 $response[2]['question_type'] = 'MC';
@@ -43,19 +43,19 @@ $resultTotal = mysqli_fetch_assoc($query2);
 $response[2]['total'] = $resultTotal['c'];
 $query = mysqli_query($link,"SELECT COUNT(*) AS c FROM `SURVEY_1_RESULTS` WHERE question_id=2 AND answer=1 "); 
 $result1 = mysqli_fetch_assoc($query);
-$response[2]['result1'] = $result1['c'];
+$response[2]['answers'][] = $result1['c'];
 $query = mysqli_query($link,"SELECT COUNT(*) AS c FROM `SURVEY_1_RESULTS` WHERE question_id=2 AND answer=2 "); 
 $result1 = mysqli_fetch_assoc($query);
-$response[2]['result2'] = $result1['c'];
+$response[2]['answers'][] = $result1['c'];
 $query = mysqli_query($link,"SELECT COUNT(*) AS c FROM `SURVEY_1_RESULTS` WHERE question_id=2 AND answer=3 "); 
 $result1 = mysqli_fetch_assoc($query);
-$response[2]['result3'] = $result1['c'];
+$response[2]['answers'][] = $result1['c'];
 $query = mysqli_query($link,"SELECT COUNT(*) AS c FROM `SURVEY_1_RESULTS` WHERE question_id=2 AND answer=4 "); 
 $result1 = mysqli_fetch_assoc($query);
-$response[2]['result4'] = $result1['c'];
+$response[2]['answers'][] = $result1['c'];
 $query = mysqli_query($link,"SELECT COUNT(*) AS c FROM `SURVEY_1_RESULTS` WHERE question_id=2 AND answer=5 "); 
 $result1 = mysqli_fetch_assoc($query);
-$response[2]['result5'] = $result1['c'];
+$response[2]['answers'][] = $result1['c'];
 
 //results for Question1
 $response[3]['question_type'] = 'MC';
@@ -64,16 +64,16 @@ $resultTotal = mysqli_fetch_assoc($query2);
 $response[3]['total'] = $resultTotal['c'];
 $query = mysqli_query($link,"SELECT COUNT(*) AS c FROM `SURVEY_1_RESULTS` WHERE question_id=3 AND answer=1 "); 
 $result1 = mysqli_fetch_assoc($query);
-$response[3]['result1'] = $result1['c'];
+$response[3]['answers'][] = $result1['c'];
 $query = mysqli_query($link,"SELECT COUNT(*) AS c FROM `SURVEY_1_RESULTS` WHERE question_id=3 AND answer=2 "); 
 $result1 = mysqli_fetch_assoc($query);
-$response[3]['result2'] = $result1['c'];
+$response[3]['answers'][] = $result1['c'];
 $query = mysqli_query($link,"SELECT COUNT(*) AS c FROM `SURVEY_1_RESULTS` WHERE question_id=3 AND answer=3 "); 
 $result1 = mysqli_fetch_assoc($query);
-$response[3]['result3'] = $result1['c'];
+$response[3]['answers'][] = $result1['c'];
 $query = mysqli_query($link,"SELECT COUNT(*) AS c FROM `SURVEY_1_RESULTS` WHERE question_id=3 AND answer=4 "); 
 $result1 = mysqli_fetch_assoc($query);
-$response[3]['result4'] = $result1['c'];
+$response[3]['answers'][] = $result1['c'];
 
 echo json_encode($response);
 ?>

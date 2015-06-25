@@ -102,9 +102,59 @@ public class JSONParser {
         return choice;
     }
 
-    private static ArrayList<Bundle> parseAnswerList(JsonReader reader){
+    private static ArrayList<Bundle> parseAnswerList(JsonReader reader) throws IOException{
         ArrayList<Bundle> answerList = new ArrayList<>();
+        reader.beginArray();
+        while(reader.hasNext()){
+            answerList.add(parseResult(reader));
+        }
+        reader.endArray();
+        return answerList;
+    }
 
+    private static Bundle parseResult(JsonReader reader) throws IOException{
+        Bundle result = new Bundle();
+        reader.beginObject();
+        String type = null;
+        while(reader.hasNext()){
+            String name = reader.nextName();
+            if(name.equals("question_type")){
+                type = reader.nextString();
+                result.putString(name, type);
+            }else if(name.equals("total")){
+                result.putInt(name,reader.nextInt());
+            }else if(name.equals("answers")){
+                if(type != null) {
+                    if (type.equals("TX")) {
+                        result.putStringArrayList(name,parseTextAnswers(reader));
+                    } else {
+                        result.putIntegerArrayList(name,parseIntAnswers(reader));
+                    }
+                }
+            }
+        }
+        reader.endObject();
+
+        return result;
+    }
+
+    private static ArrayList<String> parseTextAnswers(JsonReader reader) throws IOException{
+        ArrayList<String> answerList = new ArrayList<>();
+        reader.beginArray();
+        while(reader.hasNext()){
+            answerList.add(reader.nextString());
+        }
+        reader.endArray();
+        return answerList;
+    }
+
+    private static ArrayList<Integer> parseIntAnswers(JsonReader reader) throws IOException{
+        ArrayList<Integer> answerList = new ArrayList<>();
+        reader.beginArray();
+        while (reader.hasNext()){
+            answerList.add(reader.nextInt());
+        }
+        reader.endArray();
         return answerList;
     }
 }
