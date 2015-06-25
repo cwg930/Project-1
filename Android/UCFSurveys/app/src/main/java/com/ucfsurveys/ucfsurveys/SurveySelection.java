@@ -84,7 +84,7 @@ public class SurveySelection extends Activity implements View.OnClickListener, A
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if(selectedView!=null){
-            selectedView.setBackgroundColor(Color.WHITE);
+            selectedView.setBackgroundColor(Color.TRANSPARENT);
         }
         selectedId = id;
         selectedPosition = position;

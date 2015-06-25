@@ -2,6 +2,7 @@ package com.ucfsurveys.ucfsurveys;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,6 +22,7 @@ public class MultipleSelectionQuestionActivity extends QuestionActivity implemen
     ArrayAdapter mArrayAdapter;
     ArrayList<String> answerTextList;
     int selectionId;
+    View selectedView;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -29,7 +31,7 @@ public class MultipleSelectionQuestionActivity extends QuestionActivity implemen
         answerListView = (ListView)findViewById(R.id.answerList);
         nextButton = (Button)findViewById(R.id.nextButton);
         questionList = getIntent().getParcelableArrayListExtra("questionList");
-        questionNum = getIntent().getIntExtra("questionNum",0);
+        questionNum = getIntent().getIntExtra("questionNum", 0);
         surveyID = getIntent().getLongExtra("surveyID", 0);
         completedList = getIntent().getStringArrayListExtra("completedList");
         Bundle questionData = null;
@@ -60,5 +62,10 @@ public class MultipleSelectionQuestionActivity extends QuestionActivity implemen
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         selectionId = position;
         view.setSelected(true);
+        if(selectedView!=null){
+            selectedView.setBackgroundColor(Color.TRANSPARENT);
+        }
+        selectedView = view;
+        selectedView.setBackgroundColor(Color.LTGRAY);
     }
 }
