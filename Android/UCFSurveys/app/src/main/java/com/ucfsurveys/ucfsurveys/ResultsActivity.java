@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
@@ -38,7 +39,8 @@ public class ResultsActivity extends Activity implements View.OnClickListener{
         Bundle currentQuestion = resultList.get(questionNum);
         questionText.setText("Question: " + (questionNum+1));
         if(currentQuestion.getString("question_type").equals("TX")){
-
+            Toast toast = Toast.makeText(this,"Text answers, no graph", Toast.LENGTH_SHORT);
+            toast.show();
         }else {
             ArrayList<Integer> dataList = currentQuestion.getIntegerArrayList("answers");
             DataPoint[] dataPoints = new DataPoint[dataList.size()];
