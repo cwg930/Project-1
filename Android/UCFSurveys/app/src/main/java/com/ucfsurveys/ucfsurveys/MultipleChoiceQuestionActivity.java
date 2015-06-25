@@ -26,6 +26,7 @@ public class MultipleChoiceQuestionActivity extends QuestionActivity implements 
         nextButton = (Button)findViewById(R.id.nextButton);
         questionList = getIntent().getParcelableArrayListExtra("questionList");
         questionNum = getIntent().getIntExtra("questionNum",0);
+        surveyID = getIntent().getLongExtra("surveyID", 0);
         completedList = getIntent().getStringArrayListExtra("completedList");
         Bundle questionData = null;
         if(questionList != null){

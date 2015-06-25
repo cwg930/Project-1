@@ -72,7 +72,7 @@ public class SurveySelection extends Activity implements View.OnClickListener, A
             }else if(selectedId == 1){
                 task.execute("http://www.ucfsurveys.com/JSON_encode/json_encode2.php");
             }
-            else{
+            else {
                 task.execute("http://www.ucfsurveys.com/JSON_encode/json_encode3.php");
             }
         }
@@ -133,18 +133,21 @@ public class SurveySelection extends Activity implements View.OnClickListener, A
                 nextQuestion = new Intent(getApplicationContext(),TextQuestionActivity.class);
                 nextQuestion.putParcelableArrayListExtra("questionList",list);
                 nextQuestion.putExtra("questionNum", 0);
+                nextQuestion.putExtra("surveyID", selectedId);
                 nextQuestion.putStringArrayListExtra("completedList", completedList);
                 startActivity(nextQuestion);
             }else if(questionType.equals("MC")||questionType.equals("DD")){
                 nextQuestion = new Intent(getApplicationContext(), MultipleChoiceQuestionActivity.class);
                 nextQuestion.putParcelableArrayListExtra("questionList", list);
                 nextQuestion.putExtra("questionNum", 0);
+                nextQuestion.putExtra("surveyID", selectedId);
                 nextQuestion.putStringArrayListExtra("completedList", completedList);
                 startActivity(nextQuestion);
             }else if(questionType.equals("CB")){
                 nextQuestion = new Intent(getApplicationContext(), MultipleSelectionQuestionActivity.class);
                 nextQuestion.putParcelableArrayListExtra("questionList", list);
                 nextQuestion.putExtra("questionNum", 0);
+                nextQuestion.putExtra("surveyID", selectedId);
                 nextQuestion.putStringArrayListExtra("completedList",completedList);
                 startActivity(nextQuestion);
             }

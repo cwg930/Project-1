@@ -34,18 +34,30 @@ public class Submit extends Activity implements View.OnClickListener{
     ProgressDialog pDialog;
     Button submitButton;
     ArrayList<String> completedList;
-    final String urlString = "http://www.ucfsurveys.com/JSON_encode/submit.php";
+    long surveyID;
+    final String urlString1 = "http://www.ucfsurveys.com/JSON_encode/submit.php";
+    final String urlString2 = "http://www.ucfsurveys.com/JSON_encode/submit2.php";
+    final String urlString3 = "http://www.ucfsurveys.com/JSON_encode/submit3.php";
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit);
         submitButton = (Button)findViewById(R.id.submit_button);
         completedList = getIntent().getStringArrayListExtra("completedList");
+        surveyID = getIntent().getLongExtra("surveyID",0);
         submitButton.setOnClickListener(this);
     }
 
-    public void onClick(View v){
+    public void onClick(View v) {
         SubmitTask task = new SubmitTask();
-        task.execute(urlString);
+        if (surveyID == 0) {
+            task.execute(urlString1);
+        } else if (surveyID == 1) {
+            task.execute(urlString2);
+
+        } else if(surveyID == 2) {
+        task.execute(urlString3);
+    }
     }
 
     class SubmitTask extends AsyncTask<String, Void, Integer>{
@@ -115,7 +127,6 @@ public class Submit extends Activity implements View.OnClickListener{
                 if(first){
                     first = false;
                 }else builder.append("&");
-
                 builder.append(URLEncoder.encode("answer"+i,"UTF-8"));
                 builder.append("=");
                 builder.append(URLEncoder.encode(str,"UTF-8"));

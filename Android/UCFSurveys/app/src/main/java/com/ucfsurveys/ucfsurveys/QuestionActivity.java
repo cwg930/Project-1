@@ -24,7 +24,7 @@ public abstract class QuestionActivity extends Activity implements View.OnClickL
     ArrayList<Bundle> questionList;
     ArrayList<String> completedList;
     int questionNum;
-
+    long surveyID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +36,7 @@ public abstract class QuestionActivity extends Activity implements View.OnClickL
         if(questionNum == (questionList.size()-1)){
             nextQuestion = new Intent(getApplicationContext(),Submit.class);
             nextQuestion.putStringArrayListExtra("completedList", completedList);
+            nextQuestion.putExtra("surveyID", surveyID);
             startActivity(nextQuestion);
         }
         else {
@@ -45,18 +46,21 @@ public abstract class QuestionActivity extends Activity implements View.OnClickL
                 nextQuestion = new Intent(getApplicationContext(), TextQuestionActivity.class);
                 nextQuestion.putParcelableArrayListExtra("questionList", questionList);
                 nextQuestion.putExtra("questionNum", questionNum);
+                nextQuestion.putExtra("surveyID", surveyID);
                 nextQuestion.putStringArrayListExtra("completedList", completedList);
                 startActivity(nextQuestion);
             } else if (questionType.equals("MC") || questionType.equals("DD")) {
                 nextQuestion = new Intent(getApplicationContext(), MultipleChoiceQuestionActivity.class);
                 nextQuestion.putParcelableArrayListExtra("questionList", questionList);
                 nextQuestion.putExtra("questionNum", questionNum);
+                nextQuestion.putExtra("surveyID", surveyID);
                 nextQuestion.putStringArrayListExtra("completedList", completedList);
                 startActivity(nextQuestion);
             } else if (questionType.equals("CB")) {
                 nextQuestion = new Intent(getApplicationContext(), MultipleSelectionQuestionActivity.class);
                 nextQuestion.putParcelableArrayListExtra("questionList", questionList);
                 nextQuestion.putExtra("questionNum", questionNum);
+                nextQuestion.putExtra("surveyID", surveyID);
                 nextQuestion.putStringArrayListExtra("completedList", completedList);
                 startActivity(nextQuestion);
             }
